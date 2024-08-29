@@ -26,6 +26,8 @@ Iterator는 어느 것이 많이 모여있을 때, 이를 순서대로 가리키
 
 책장안에 책을 넣고, 책 이름을 차례대로 표시하는 프로그램을 예시로 들어보자
 
+참고로 각 클래스는 각 클래스 이름으로 된 파일에 넣어야 실행되는거 알죠…?
+
 ```java
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -76,20 +78,20 @@ public class BookShelf implements Iterable<Book> {
 		return last;
 	}
 	
-	@Overide // Iterator 인터페이스의 iterator를 구현함
+	@Override // Iterator 인터페이스의 iterator를 구현함
 	public Iterator<Book> iterator() {
-		return new BookSelfIterator(this); // this는 인스턴스 그 자체
+		return new BookShelfIterator(this); // this는 인스턴스 그 자체
 	} // 반복하여 처리하려할 때 Iterator 객체를 생성해서 반환
 }
 
 // Iterator 역할 i의 역할과 작업을 여기에 작성 얘는 그럼 처음부터 끝까지 다음 책을 볼 수 있음
-public class BookShelfIterator(BookShelf bookShelf) {
+public class BookShelfIterator implements Iterator<Book> {
 	private BookShelf bookShelf;
 	private int index;
 	
 	public BookShelfIterator(BookShelf bookShelf) {
 		this.bookShelf = bookShelf;
-		this.index = 0
+		this.index = 0;
 	}
 	
 	@Override
@@ -108,12 +110,9 @@ public class BookShelfIterator(BookShelf bookShelf) {
 		}
 		Book book = bookShelf.getBookAt(index); // 있으면 book 인스턴스 변수에 저장
 		index++; // 가리키는 위치를 증가하고
-		return book // 현 위치의 책을 리턴
+		return book;
 	}
-	
-	/*
-		맨 처음 언급했던 for문에서 i++의 역할을 담당하는 next 메소드
-	*/
+}
 ```
 
 전체적인 클래스를 작성했다. 이제 메인에서 써보자
