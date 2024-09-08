@@ -8,6 +8,6 @@
 
 ---
 
-[Iterator](./iterator/iterator_pattern.md)
-[Adaptor](./adapter/adapter_pattern.md)
-[Template method](./template_method/template_method_pattern)
+1. [Iterator](./iterator/iterator_pattern.md)
+2. [Adaptor](./adapter/adapter_pattern.md)
+3. [Template method](./template_method/template_method_pattern)
