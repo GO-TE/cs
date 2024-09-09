@@ -10,4 +10,5 @@
 
 1. [Iterator](./Iterator/iterator_pattern.md)
 2. [Adaptor](./adapter/adapter_pattern.md)
-3. [Template method](./template_method/template_method_pattern)
+3. [Template method](./template_method/template_method_pattern.md)
+4. [Factory method](./factory_method/factory_method_pattern.md)
