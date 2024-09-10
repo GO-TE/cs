@@ -12,3 +12,4 @@
 2. [Adaptor](./adapter/adapter_pattern.md)
 3. [Template method](./template_method/template_method_pattern.md)
 4. [Factory method](./factory_method/factory_method_pattern.md)
+5. [Singleton](./singleton/singleton_pattern.md)
