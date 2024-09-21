@@ -15,3 +15,4 @@
 5. [Singleton](./singleton/singleton_pattern.md)
 6. [Prototype](./prototype/prototype_pattern.md)
 7. [Builder](./builder_pattern/builder_pattern.md)
+8. [Abstract Factory](./abstract_factory_pattern/abstract_factory_pattern.md)
