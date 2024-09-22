@@ -14,5 +14,6 @@
 4. [Factory method](./factory_method/factory_method_pattern.md)
 5. [Singleton](./singleton/singleton_pattern.md)
 6. [Prototype](./prototype/prototype_pattern.md)
-7. [Builder](./builder_pattern/builder_pattern.md)
-8. [Abstract Factory](./abstract_factory_pattern/abstract_factory_pattern.md)
+7. [Builder](./builder/builder_pattern.md)
+8. [Abstract Factory](./abstract_factory/abstract_factory_pattern.md)
+8. [Bridge](./bridge/bridge_pattern.md)
