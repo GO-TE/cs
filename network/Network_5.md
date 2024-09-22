@@ -193,6 +193,37 @@ urn:isbn:0451450523
         
         ex ) HTTP/1.1 200 OK
         
+
+- HTTP Method
+    
+    `GET`  특정 자원을 조회할 때 사용 : 응답으로 해당 요청 자원을 return
+    
+    `HEAD` 헤더만 요청할 때 사용 : 응답 메세지의 본문 없음
+    
+    `POST` 특정 작업 처리 요청할 때 사용 : 처리할 대상이나 작업 등을 본문에 추가해서 보냄 : 응답 메세지는 요청한 본문과 Location을 포함해서 줌 (자원을 생성하는 작업이라면)
+    
+    `PUT` 덮어쓰기를 요청하는 메소드 : 요청 자원이 없다면 새롭게 생성함 (완전 대체)
+    
+    `PATCH` 얘도 수정인데, PUT과 다른 점은 PUT은 요청당한 자원을 완전 대체하면
+    
+    얘는 수정 요청 안한애들은 고대로 냅둠
+    
+    `DELETE` 삭제.
+    
+
+- HTTP 상태 코드
+    
+    100번대 : 정보성 상태 코드
+    
+    200번대 : 성공
+    
+    300번대 : 리다이렉션 상태 코드
+    
+    400번대 : 클라이언트 에러 코드
+    
+    500번대 : 서버 에러 상태 코드
+    
+
 - **HEADER**
     
     HTTP 통신에 필요한 부가 정보를 의미
@@ -202,7 +233,23 @@ urn:isbn:0451450523
     Host: www.example.com
     User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101
     Firefox/118.0
+    Referer: https://www.example.com/request
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
     Accept: text/html
     ```
     
     각 헤더는 콜론을 기준으로 헤더 이름과 값으로 구성됨
+    
+    `Host` 요청을 보낼 호스트를 나타냄. 주로 도메인 네임으로 명시
+    
+    `User-Agent` 클라이언트 측 프로그램을 나타냄
+    
+    운영체제, 브라우저 종류 버전, 렌더링 엔진 등 이걸로 뭐로 접속했는지 유추함
+    
+    `Referer` 클라이언트가 요청을 보낼 때 머물렀던 URL이 명시됨
+    
+    `Authorization` 인증 정보 : 인증 타입과 정보가 차례대로 명시됨
+    
+    인코딩 방법에 따라 타입이 나뉘고, 정보에는 해당 방법으로 인코딩한 데이터가 존재
+    
+    `Server` 요청을 처리하는 서버측 소프트웨어 관련된 정보를 명시
