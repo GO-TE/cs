@@ -16,4 +16,5 @@
 6. [Prototype](./prototype/prototype_pattern.md)
 7. [Builder](./builder/builder_pattern.md)
 8. [Abstract Factory](./abstract_factory/abstract_factory_pattern.md)
-8. [Bridge](./bridge/bridge_pattern.md)
+9. [Bridge](./bridge/bridge_pattern.md)
+10. [Strategy](./strategy/strategy_pattern.md)
