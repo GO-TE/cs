@@ -18,3 +18,4 @@
 8. [Abstract Factory](./abstract_factory/abstract_factory_pattern.md)
 9. [Bridge](./bridge/bridge_pattern.md)
 10. [Strategy](./strategy/strategy_pattern.md)
+11. [Composite](./composite/composite_pattern.md)
