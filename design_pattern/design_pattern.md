@@ -19,3 +19,4 @@
 9. [Bridge](./bridge/bridge_pattern.md)
 10. [Strategy](./strategy/strategy_pattern.md)
 11. [Composite](./composite/composite_pattern.md)
+12. [Decorator](./decorator/decorator_pattern.md)
