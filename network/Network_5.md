@@ -236,6 +236,8 @@ urn:isbn:0451450523
     Referer: https://www.example.com/request
     Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
     Accept: text/html
+    Allow: POST, OPTIONS
+    WWW-Authenticate: Basic realm="Acces to enginner site", charset="UTF-8"
     ```
     
     각 헤더는 콜론을 기준으로 헤더 이름과 값으로 구성됨
@@ -253,3 +255,117 @@ urn:isbn:0451450523
     인코딩 방법에 따라 타입이 나뉘고, 정보에는 해당 방법으로 인코딩한 데이터가 존재
     
     `Server` 요청을 처리하는 서버측 소프트웨어 관련된 정보를 명시
+    
+    `Allow` 클라이언트에게 허용된 HTTP 메소드 목록을 알려주기 위함
+    
+    목록에 없는 메소드를 요청하면 `405 Method Not Allowed` 의 상태코드를 반환
+    
+    `Retry-After` `503 Service Unvailable` 의 상태 코드를 받았을 때 같이 쓰임
+    
+    현재 요청을 수행할 수 없으니 추후에 가능 할 수도 있음에서 추후가 언제인지 알려줌
+    
+    `Location` 클라이언트에게 자원의 위치를 알려주는 헤더
+    
+    `WWW-Authnicate` 요청한 자원에 대해 유효한 인증수단이 없을 때 응답하는 상태코드 `401 Unauthorized` 와 함께 반환되는데, 요청할 때 필요한 인증방식이 뭔지 명시됨. 혹은 더 많은 정보를 포함함
+    
+    - 요청과 응답 모두 활용되는 헤더
+    
+    ```java
+    Date: Tue, 15 Nov 1994 08:12:31 GMT
+    Connection: keep-alive
+    Content-Length: 100
+    Content-Type: text/html; charset=UTF-8
+    Content-Language: ko-KR
+    Content-Encoding: gzip
+    ```
+    
+    `Date` 메세지가 생성된 날짜와 시각
+    
+    `Connection` 요청과 응답 간 연결 방식을 설정하는 헤더 (지속 연결인지? 아니면 종료인지? close)
+    
+    `Content-Length` 본문의 바이트 단위 크기
+    
+    `Content-Type` 본문에 사용된 미디어 타입
+    
+    `Content-Language` 사용된 자연어태그 (언어-나라) : en-US (미국 영어를 알림)
+    
+    `Content-Encoding` 본문을 압축하거나 변환한 방식을 명시함
+    
+
+Authorization 인증 수행 과정
+
+1. 인증되지 않은 클라이언트가 서버에 GET 요청
+2. 서버가 응답으로 401 상태코드와 WWW-Authenticate 헤더를 통해 인증 방식을 알림
+3. 클라이언트는 사용자로부터 인증정보를 전달받음
+4. 클라이언트는 받은 값을 인코딩하여 다시 전송
+5. 인증정보 확인
+6. 유효하면 → 200,  무효하면 → 401 응답
+
+### 캐시
+
+불필요한 대역폭 낭비와 응답 지연을 방지하기 위해 정보의 사본을 임시로 저장하는 기술
+
+저장되는 위치는 클라이언트에 되기도 하고, 서버와 클라 사이의 미들서버에 저장되기도함
+
+예를 들어, [naver.com](http://naver.com)을 한번 접속하면 naver 홈페이지가 뜰텐데, 여러번 접속을 시도하면 할때마다 그 여러가지 링크와 배너 이미지를 계속 요청하고 보내야하는 경우가 생김
+
+근데 이걸 미리 저장해두면 통신과정을 스킵할 수 있어서 좀 더 빠른 로딩이 되지않을까요?
+
+근데 여기서 원본이 아닌 사본을 저장하니, 원본 데이터가 변경되는 사항도 고려해야함
+
+캐시 데이터에는 원본 데이터와 얼마나 유사한지 캐시 신선도라고 표현함
+
+이를 보증하는 대표적인 방법은 캐시 데이터의 유효기간을 주어 기간이 만료된다면 원본 데이터를 다시 요청하는 방식으로 캐시를 업데이트함
+
+다른 방법으론 엔티티 태그(Etag)를 사용하는 방법
+
+엔티티 태그 : 자원의 버전을 식별하기 위한 정보
+
+서버에서 자원이 변경될 때 버전 값인 Etag값이 변경됨
+
+클라이언트가 신선도를 검사할 때 서버에 요청으로 `If-None-Match`라는 헤더로 etag값을 보내면 이에 대한 응답으로 바뀐게 있는지 없는지 검사할 수 있음
+
+→ 기한을 같이 보내고 이후에 바뀐게 있는지 서버에선 확인함
+
+유효기간의 경우는 `If-Modified-Since`라는 헤더로 검사함
+
+→ 태그의 값이 유효한지 검사 후 요청에 대한 응답을 보냄
+
+검사할 때 서버 입장에서 겪는 상황 + 대처
+
+1. 요청 받은 자원이 동일 (304 상태 코드 응답)
+2. 요청 받은 자원이 변경 (200 상태코드와 새로운 자원을 반환)
+3. 요청 받은 자원이 삭제됨 (404 상태코드 반환)
+
+### 쿠키
+
+서버에서 생성되어 클라이언트 측에 저장되는 데이터로, 상태를 저장하지 않는 HTTP의 특성을 보완하기 위한 수단
+
+key, value의 형태를 띄고 있고 적용범위, 만료 기간 등 여러 메타 데이터를 가질 수 있음
+
+어디에 쓰이느냐?
+
+네이버나 여러 웹서비스에서 로그인할 때 로그인 상태 유지를 보셨나요?
+
+HTTP는 stateless 프로토콜인데 로그인 상태를 어떻게 유지하도록 하느냐..
+
+우리는 이걸 쿠키로 가능하게합니당
+
+동작방식
+
+일단 HTTP 헤더에 포함되어 쿠키가 주고 받아집니다.
+
+1. 서버에서 `Set-Cookie` 라는 헤더로 쿠키를 전달함
+    
+    한번에 여러개도 보낼 수 있음 `Set-Cookie: name=value; attribution` 
+    
+2. 이제 이걸 받은 클라이언트는 쿠키를 저장함.
+    
+    그리고 서버에 요청을 보낼 때 `Cookie` 헤더에 첨부해서 보냄
+    
+    `Cookie: name=value; attribution` 
+    
+
+근데 쿠키를 전달받은 도메인에서만 받은 쿠키를 써야하겠죠????
+
+그리고 쿠키는 유효기간이 있어 지나면 삭제되어 다시 전달이 되지 않습니당
