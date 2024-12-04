@@ -21,3 +21,4 @@
 11. [Composite](./composite/composite_pattern.md)
 12. [Decorator](./decorator/decorator_pattern.md)
 13. [Visitor](./visitor/visitor_pattern.md)
+14. [Facade](./facade/facade_pattern.md)
