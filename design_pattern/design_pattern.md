@@ -22,3 +22,4 @@
 12. [Decorator](./decorator/decorator_pattern.md)
 13. [Visitor](./visitor/visitor_pattern.md)
 14. [Facade](./facade/facade_pattern.md)
+15. [Mediator](./mediator/meidator_pattern.md)
