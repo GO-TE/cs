@@ -10,7 +10,7 @@
 
 1. [Iterator](./Iterator/iterator_pattern.md)
 2. [Adaptor](./adapter/adapter_pattern.md)
-3. [Template method](./template_method/template_method_pattern.md)
+3. [Template method](./template_method/Template_method_pattern.md)
 4. [Factory method](./factory_method/factory_method_pattern.md)
 5. [Singleton](./singleton/singleton_pattern.md)
 6. [Prototype](./prototype/prototype_pattern.md)
@@ -23,3 +23,4 @@
 13. [Visitor](./visitor/visitor_pattern.md)
 14. [Facade](./facade/facade_pattern.md)
 15. [Mediator](./mediator/meidator_pattern.md)
+16. [Observer](./observer/observer_pattern.md)
