@@ -24,3 +24,4 @@
 14. [Facade](./facade/facade_pattern.md)
 15. [Mediator](./mediator/meidator_pattern.md)
 16. [Observer](./observer/observer_pattern.md)
+17. [Memento](./memento/memento_pattern.md)
